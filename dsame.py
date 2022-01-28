@@ -3,6 +3,7 @@
 # Copyright (C) 2017 Joseph W. Metcalf
 # Multi-Countries selection added by Juan Carlos Perez De Castro KM4NNO / XE1F Jan 24, 2022.
 # Multi-language added by Juan Carlos Perez De Castro KM4NNO / XE1F Jan 24, 2022.
+# EEE Test code filtering added by Juan Carlos Perez De Castro KM4NNO / XE1F Jan 27, 2022.
 #
 # Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby
 # granted, provided that the above copyright notice and this permission notice appear in all copies.
@@ -189,17 +190,17 @@ def readable_message(ORG='WXR',EEE='RWT',PSSCCC=[],TTTT='0030',JJJHHMM='0010000'
 	import textwrap
 	printf()
 	location=get_location(STATION, TYPE)
-	MSG=[format_message(defs.MSG__TEXT[LANG]['MSG1'], ORG=ORG, EEE=EEE, TTTT=TTTT, JJJHHMM=JJJHHMM, STATION=STATION, TYPE=TYPE, COUNTRY=COUNTRY, LANG=defs.LANGUAGE, article=defs.MSG__TEXT[defs.LANGUAGE][defs.SAME__ORG[ORG]['ARTICLE'][COUNTRY]].title(), has=defs.MSG__TEXT[defs.LANGUAGE]['HAS'] if not defs.SAME__ORG[ORG]['PLURAL'] else defs.MSG__TEXT[defs.LANGUAGE]['HAVE'], preposition=defs.MSG__TEXT[defs.LANGUAGE]['IN'] if location !='' else '')]
+	MSG=[format_message(defs.MSG__TEXT[defs.LANGUAGE]['MSG1'], ORG=ORG, EEE=EEE, TTTT=TTTT, JJJHHMM=JJJHHMM, STATION=STATION, TYPE=TYPE, COUNTRY=COUNTRY, LANG=defs.LANGUAGE, article=defs.MSG__TEXT[defs.LANGUAGE][defs.SAME__ORG[ORG]['ARTICLE'][COUNTRY]].title(), has=defs.MSG__TEXT[defs.LANGUAGE]['HAS'] if not defs.SAME__ORG[ORG]['PLURAL'] else defs.MSG__TEXT[defs.LANGUAGE]['HAVE'], preposition=defs.MSG__TEXT[defs.LANGUAGE]['IN'] if location !='' else '')]
 	current_state=None
 	for idx, item in enumerate(PSSCCC):
 		county, state=county_decode(item, COUNTRY)
 		if current_state != state:
 			DIVISION=get_division(PSSCCC[idx][1:3], COUNTRY)
-			output=defs.MSG__TEXT[LANG]['MSG2'].format(conjunction='' if idx == 0 else defs.MSG__TEXT[LANG]['AND'], state=state, division=DIVISION)
+			output=defs.MSG__TEXT[defs.LANGUAGE]['MSG2'].format(conjunction='' if idx == 0 else defs.MSG__TEXT[defs.LANGUAGE]['AND'], state=state, division=DIVISION)
 			MSG+=[''.join(output)]
 			current_state=state
-		MSG+=[defs.MSG__TEXT[LANG]['MSG3'].format(county=county if county != state else defs.MSG__TEXT[LANG]['ALL'].upper(),punc=',' if idx !=len(PSSCCC)-1 else '.')]
-	MSG+=[defs.MSG__TEXT[LANG]['MSG4']]
+		MSG+=[defs.MSG__TEXT[defs.LANGUAGE]['MSG3'].format(county=county if county != state else defs.MSG__TEXT[defs.LANGUAGE]['ALL'].upper(),punc=',' if idx !=len(PSSCCC)-1 else '.')]
+	MSG+=[defs.MSG__TEXT[defs.LANGUAGE]['MSG4']]
 	MSG+=[''.join(['(',LLLLLLLL,')'])]
 	output=textwrap.wrap(''.join(MSG), 78)
 	for item in output:
@@ -246,6 +247,17 @@ def same_decode(same, lang, same_watch=None, event_watch=None, text=True, call=N
 			return
 		logging.debug(' '.join(['	Originator found >',ORG]))
 		logging.debug(' '.join(['	Event Code found >',EEE]))
+
+
+
+		DISABLE_TESTS = defs.DISABLE_TESTS
+		logging.debug(' '.join(['	DISABLE_TESTS >',DISABLE_TESTS]))
+		if DISABLE_TESTS == '1':
+			if EEE == 'NPT' or EEE == 'NAT' or EEE == 'NST' or EEE == 'RMT' or EEE == 'RWT':
+				return
+
+
+
 		try:
 			PSSCCC_list=PSSCCC.split('-')
 		except:
@@ -285,8 +297,6 @@ def same_decode(same, lang, same_watch=None, event_watch=None, text=True, call=N
 			except KeyError:
 				MX_bad_list.append(code)
 				logging.debug(' '.join(['	MX KeyError Code found >',str(code)]))
-
-
 
 		COUNTRY = defs.COUNTRY
 
