@@ -1,3 +1,5 @@
+# This is a fork from the original DSAME code, as it does not acccept branches or contributions, so we had to make our forked variant to implement Mexico and other features (Angel XE1GBS and Juan Carlos KM4NNO / XE1F).
+
 # [dsame](https://dsame.xoynq.com)
 **dsame** is a program to decode [EAS](http://en.wikipedia.org/wiki/Emergency_Alert_System)/[SAME](http://en.wikipedia.org/wiki/Specific_Area_Message_Encoding) (Emergency Alert System/Specific Area Message Encoding) alert messages. These messages are primarily used by the National Weather Service for weather-related warnings. **dsame** will decode a demodulated message, filter by SAME ([US](http://www.nws.noaa.gov/nwr/coverage/county_coverage.html)/[CA](http://www.ec.gc.ca/meteo-weather/default.asp?lang=En&n=E5A4F19C-1)) and/or event code, provide readable text, or run an external program.
 
@@ -156,12 +158,15 @@ Send an alert to a [Pushbullet](https://www.pushbullet.com) channel:
 
 This [experimental Pushbullet channel](https://www.pushbullet.com/channel?tag=xoynq-weather) is updated using dsame, multimon-ng and a rtl-sdr dongle on a Raspberry Pi 2.
 
-###Known Issues
+### Whats New
 
-* SASMEX/SARMEX, a Mexican system for seismic alerts, ihas been implemented with the few available information.
-* A correct and complete list of ICAO location codes used by the National Weather Service messages is not available.
+* SASMEX/SARMEX, a Mexican system for seismic alerts, has been implemented by Angel XE1GBS and Juan Carlos KM4NNO / XE1F with the few available information.
 * Country needs to be selected on defs.py file as US, CA, MX.
 * Language can be selected on defs.pg file as EN or SP.
+
+###Known Issues
+
+* A correct and complete list of ICAO location codes used by the National Weather Service messages is not available.
 * Date and time information may not be accurate when decoding old messages or messages from another time zone.
 * Multimon-ng will not decode the same alert in succession. This should only be an issue during testing and can be avoided by alternating test alerts.
 
