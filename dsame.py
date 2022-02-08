@@ -4,6 +4,9 @@
 # Multi-Countries selection added by Juan Carlos Perez De Castro KM4NNO / XE1F Jan 24, 2022.
 # Multi-language added by Juan Carlos Perez De Castro KM4NNO / XE1F Jan 24, 2022.
 # EEE Test code filtering added by Juan Carlos Perez De Castro KM4NNO / XE1F Jan 27, 2022.
+# Last update February 02, 2022.
+#
+# VERSION = '0.1.4.2'
 #
 # Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby
 # granted, provided that the above copyright notice and this permission notice appear in all copies.
@@ -106,7 +109,10 @@ def get_division(input, COUNTRY='US'):
 def get_event(input):
 	event=None
 	try:
-		event=defs.SAME__EEE[input]
+		if defs.LANGUAGE == 'SP':
+			event=defs.SAME__EEE__SP[input]
+		else:
+			event=defs.SAME__EEE[input]
 	except:
 		if input[2:] in 'WAESTMN':
 			event=' '.join(['Unknown', defs.SAME_UEEE[input[2:]]])
@@ -161,9 +167,6 @@ def kwdict(**kwargs):
 	return kwargs
 
 def format_message(command, ORG='WXR', EEE='RWT',PSSCCC=[],TTTT='0030',JJJHHMM='0010000', STATION=None, TYPE=None, LLLLLLLL=None, COUNTRY='US', LANG=defs.LANGUAGE, MESSAGE=None,**kwargs):
-
-
-
 	logging.debug(' '.join(['	format_message ORG >',ORG]))
 	logging.debug(' '.join(['	EEE >',EEE]))
 	if (PSSCCC != None):
@@ -181,10 +184,31 @@ def format_message(command, ORG='WXR', EEE='RWT',PSSCCC=[],TTTT='0030',JJJHHMM='
 	logging.debug(' '.join(['	LANG >',LANG]))
 	if (MESSAGE != None):
 		logging.debug(' '.join(['	MESSAGE >',MESSAGE]))
-
-
-
 	return command.format(ORG=ORG, EEE=EEE, TTTT=TTTT, JJJHHMM=JJJHHMM, STATION=STATION, TYPE=TYPE, LLLLLLLL=LLLLLLLL, COUNTRY=COUNTRY, LANG=defs.LANGUAGE, event=get_event(EEE), type=get_indicator(EEE), end=fn_dt(alert_end(JJJHHMM,TTTT)), start=fn_dt(alert_start(JJJHHMM)), organization=defs.SAME__ORG[ORG]['NAME'][COUNTRY], PSSCCC='-'.join(PSSCCC), location=get_location(STATION, TYPE), date=fn_dt(datetime.datetime.now(),'%c'), length=get_length(TTTT), seconds=alert_length(TTTT), MESSAGE=MESSAGE, **kwargs)
+
+
+
+def format_short_message(command, ORG='WXR', EEE='RWT',PSSCCC=[],TTTT='0030',JJJHHMM='0010000', STATION=None, TYPE=None, LLLLLLLL=None, COUNTRY='US', LANG=defs.LANGUAGE, MESSAGE=None,**kwargs):
+	logging.debug(' '.join(['	format_message ORG >',ORG]))
+	logging.debug(' '.join(['	EEE >',EEE]))
+	if (PSSCCC != None):
+#		PSSCCC = 0
+		logging.debug(' '.join(['	HEY PSSCCC >',"PSSCCC"]))
+
+	logging.debug(' '.join(['	TTTT >',TTTT]))
+	if (JJJHHMM != None):
+		logging.debug(' '.join(['	JJJHHMM >',JJJHHMM]))
+	logging.debug(' '.join(['	STATION >',STATION]))
+	logging.debug(' '.join(['	TYPE >',TYPE]))
+	if (LLLLLLLL != None):
+		logging.debug(' '.join(['	LLLLLLLL >',LLLLLLLL]))
+	logging.debug(' '.join(['	COUNTRY >',COUNTRY]))
+	logging.debug(' '.join(['	LANG >',LANG]))
+	if (MESSAGE != None):
+		logging.debug(' '.join(['	MESSAGE >',MESSAGE]))
+	return command.format( event=get_event(EEE), type=get_indicator(EEE), end=fn_dt(alert_end(JJJHHMM,TTTT)), start=fn_dt(alert_start(JJJHHMM)), organization=defs.SAME__ORG[ORG]['NAME'][COUNTRY], PSSCCC='-'.join(PSSCCC), location=get_location(STATION, TYPE), date=fn_dt(datetime.datetime.now(),'%c'), MESSAGE=MESSAGE, **kwargs)
+
+
 
 def readable_message(ORG='WXR',EEE='RWT',PSSCCC=[],TTTT='0030',JJJHHMM='0010000',STATION=None, TYPE=None, LLLLLLLL=None, COUNTRY='US', LANG=defs.LANGUAGE):
 	import textwrap
@@ -203,6 +227,21 @@ def readable_message(ORG='WXR',EEE='RWT',PSSCCC=[],TTTT='0030',JJJHHMM='0010000'
 	MSG+=[defs.MSG__TEXT[defs.LANGUAGE]['MSG4']]
 	MSG+=[''.join(['(',LLLLLLLL,')'])]
 	output=textwrap.wrap(''.join(MSG), 78)
+
+	SHORT_TEXT = defs.SHORT_TEXT
+	if SHORT_TEXT == '1':
+		Short_MSG=get_event(EEE)
+		Short_MSG+=' '
+		if COUNTRY == 'CA':
+			Short_MSG+='Canada'
+		elif COUNTRY == 'MX':
+			Short_MSG+='Mexico'
+		elif COUNTRY == 'US':
+			Short_MSG+='United States'
+		#print(Short_MSG)
+		MSG=Short_MSG
+		output=textwrap.wrap(''.join(MSG), 78)
+
 	for item in output:
 		printf(item)
 	printf()

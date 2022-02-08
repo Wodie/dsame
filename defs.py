@@ -1,4 +1,4 @@
-VERSION = '0.1.4.1'
+VERSION = '0.1.4.2'
 PROGRAM = 'dsame'
 DESCRIPTION = 'dsame is a program to decode EAS/SAME alert messages'
 COPYRIGHT = 'Copyright (C) 2016 Joseph W. Metcalf'
@@ -6,6 +6,7 @@ COPYRIGHT = 'Copyright (C) 2016 Joseph W. Metcalf'
 COUNTRY = 'MX'
 LANGUAGE = 'SP'
 DISABLE_TESTS = '0'
+SHORT_TEXT = '1'
 
 TEST_STRING = 'EAS: ZCZC-WXR-RWT-055027-055039-055047-055117-055131-055137-055139-055015-055071+0030-0771800-KMKX/NWS-'
 
@@ -5986,7 +5987,89 @@ SAME__EEE={
 	'WFA' : 'Wild Fire Watch',
 	'WFW' : 'Wild Fire Warning',
 }
- 
+
+SAME__EEE__SP= {
+	'' : None,
+	'CFA': 'Vigilancia de Inundacion Costera',
+	'CFW': 'Advertencia de Inundacion Costera',
+	'DSW': 'Advertencia de Tormenta de Polvo',
+	'FFA': 'Vigilancia de Inundacion Repentina',
+	'FFW': 'Advertencia de Inundacion Repentina',
+	'FFS': 'Declaracion de Inundacion Repentina',
+	'FLA': 'Vigilancia de Inundacion',
+	'FLW': 'Advertencia de Inundacion',
+	'FLS': 'Declaracion de Inundacion',
+	'HWA': 'Vigilancia de Viento Fuerte',
+	'HWW': 'Advertencia de Viento Fuerte',
+	'HUA': 'Vigilancia de Huracan',
+	'HUW': 'Advertencia de Huracan',
+	'HLS': 'Declaracion de Huracan',
+	'SVA': 'Vigilancia de Tormenta Severa',
+	'SVR': 'Advertencia de Tormenta Severa',
+	'SVS': 'Declaracion de tiempo Severo',
+	'SMW': 'Advertencia Marina Especial',
+	'SPS': 'Declaracion Meteorologica Especial',
+	'TOA': 'Vigilancia de Tornado',
+	'TOR': 'Advertencia de Tornado',
+	'TRA': 'Vigilancia de Tormenta Tropical',
+	'TRW': 'Advertencia de Tormenta Tropical',
+	'TSA': 'Vigilancia de Tsunami',
+	'TSW': 'Advertencia de Tsunami',
+	'WSA': 'Vigilancia de Tormenta de Invierno',
+	'WSW': 'Advertencia de Tormenta de Invierno',
+	'EAN': 'Notificacion de Accion de Emergencia',
+	'EAT': 'Terminacion de Accion de Emergencia',
+	'NIC': 'Centro Nacional de Informacion',
+	'NPT': 'Prueba Periodica Nacional',
+	'NAT': 'Prueba Audible Nacional',
+	'NST': 'Prueba Silenciosa Nacional',
+	'RMT': 'Prueba Mensual Requerida',
+	'RWT': 'Prueba Semanal Requerida',
+	'ADR': 'Mensaje Administrativo',
+	'AVA': 'Vigilancia de Avalancha',
+	'AVW': 'Advertencia de Avalancha',
+	'CAE': 'Emergencia de Sustraccion de Menores',
+	'CDW': 'Advertencia de Peligro Civil',
+	'CEM': 'Mensaje de Emergencia Civil',
+	'EQW': 'Advertencia de Terremoto',
+	'EVI': 'Evacuacion Inmediata',
+	'FRW': 'Advertencia de Incendio',
+	'HMW': 'Advertencia de Materiales Peligrosos',
+	'LEW': 'Advertencia de Aplicacion de la Ley',
+	'LAE': 'Emergencia de Area Local',
+	'TOE': '911 Interrupcion de Emergencia',
+	'NUW': 'Advertencia de Planta Nuclear',
+	'RHW': 'Advertencia de Peligro Radiologico',
+	'SPW': 'Advertencia de Refugio en el Lugar',
+	'VOTO': 'Advertencia de Volcan',
+	'NMN': 'Notificacion de Mensaje de Red',
+	'DMO': 'Advertencia de Demostracion',
+	'EWW': 'Advertencia de Viento Extremo',
+	'SSA': 'Vigilancia de Marejada Ciclonica',
+	'SSW': 'Advertencia de Marejada Ciclonica',
+	'FSW': 'Advertencia de Congelacion Repentina',
+	'FZW': 'Advertencia de Congelamiento',
+	'HLS': 'Declaracion Local de Huracan',
+	'SMW': 'Advertencia Marina Especial',
+	'BHW': 'Advertencia de Peligro Biologico',
+	'BWW': 'Advertencia de Agua Hirviendo',
+	'CHW': 'Advertencia de Peligro Quimico',
+	'CWW': 'Advertencia de Agua Contaminada',
+	'DBA': 'Reloj de la Presa',
+	'DBW': 'Advertencia de Rotura de Presa',
+	'DEW': 'Advertencia de Enfermedad Contagiosa',
+	'EVA': 'Vigilancia de Evacuacion',
+	'FCW': 'Advertencia de Contaminacion de Alimentos',
+	'IBW': 'Advertencia de Iceberg',
+	'IFW': 'Advertencia de Incendio Industrial',
+	'LSW': 'Advertencia de Deslizamiento de Tierra',
+	'POS': 'Declaracion de Corte de Energia',
+	'WFA': 'Vigilancia de Incendios Forestales',
+	'WFW': 'Advertencia de Incendio Forestal',
+}
+
+
+
  # This list is a NOAA list of meteorological station locations cross referenced with the FAA list of airport codes and locations.
  # Without a definative list of ICAO codes used with NWS alerts, this is the best available information. No source matches all ICAO codes in use.
  
