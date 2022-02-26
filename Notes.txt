@@ -1,0 +1,12 @@
+DSAME
+
+
+sudo git clone https://github.com/nivex/dsame
+cd dsame
+sudo chmod +x dsame.py
+
+# Custom dsame
+scp -r -P 22  /Users/wodie/OneDrive/+Electronics/python/dsame   pi@192.168.0.105:/home/pi/
+
+# Test line
+./dsame.py --msg "ZCZC-WXR-RWT-000000+0030-832300-XDIF/005" --loglevel 10
